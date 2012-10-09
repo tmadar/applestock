@@ -2,7 +2,6 @@
 #include "AppleStockUpdater.h"
 #include "INet.h"
 #include "AppleStockView.h"
-#include "StockXMLParser.h"
 #pragma once
 #define APPLE_URL "http://www.google.com/ig/api?stock=AAPL"
 #define TIMER_1  123213
@@ -41,6 +40,10 @@ int AppleStockUpdater::GetStockInfo() {
 	}
 
 	this->stockPriceXml.Format(_T("%s"), pageSource);
+
+	if (&parser != NULL) {
+		this->stockPrice = parser.parseXML(_bstr_t(this->stockPriceXml));
+	}
 
 	if (this->CMainFrameHandle) {
 		::PostMessage(reinterpret_cast<HWND>(this->CMainFrameHandle), WM_SET_STOCK, NULL, NULL);

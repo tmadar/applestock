@@ -73,7 +73,7 @@ public:
 		appleStockUpdater = AppleStockUpdater();
 		appleStockUpdater.CMainFrameHandle = m_hWnd;
 		appleStockUpdater.StartThread();
-		appleStockUpdater.stockPrice = "123455";
+		appleStockUpdater.stockPrice = "Please wait...";
 
 		m_hWndClient = m_view.Create(m_hWnd);
 		m_view.mainFrameHandle = m_hWnd;

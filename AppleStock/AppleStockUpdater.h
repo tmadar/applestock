@@ -4,6 +4,7 @@
 #include <atlstr.h>
 #include <atlmisc.h>
 #include "INet.h"
+#include "StockXMLParser.h"
 #pragma once
 
 class AppleStockUpdater
@@ -12,6 +13,7 @@ public:
 
 	WTL::CString stockPrice;
 	WTL::CString stockPriceXml;
+	StockXMLParser parser;
 	CInternetSession session;
 	int timeToDie;
 	HANDLE threadHandle;

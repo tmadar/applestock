@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "StockXMLParser.h"
-#include "AppleStockUpdater.h"
 
 #pragma once
 
@@ -23,7 +22,6 @@ StockXMLParser::~StockXMLParser(void)
 
 BSTR StockXMLParser::parseXML(_bstr_t xml) {
 	StockXMLParser parser;
-	AppleStockUpdater stockUpdater;
 
 	BSTR result = NULL;
 	VARIANT_BOOL success;
