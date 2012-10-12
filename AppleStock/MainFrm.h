@@ -10,6 +10,7 @@
 #include "TestBrowserView.h"
 #include "TestBrowserForm.h"
 #include "AppleStockUpdater.h"
+#include "windowfont.h"
 #pragma once
 
 class CMainFrame : public CFrameWindowImpl<CMainFrame>, 
@@ -28,6 +29,7 @@ public:
 	CAppleStockView m_view;
 	HWND browserWindowHandle;
 	AppleStockUpdater appleStockUpdater;
+	CWindowFont m_fontBold;
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg)
 	{
@@ -51,6 +53,7 @@ public:
 		MESSAGE_HANDLER(WM_SET_BROWSER, OnMyMessage)
 		MESSAGE_HANDLER(WM_OPEN_BROWSER, OnOpenBrowser)
 		MESSAGE_HANDLER(WM_SET_STOCK, OnSetStock)
+		MESSAGE_HANDLER(WM_SET_STOCK_COLOR, OnSetStockColor)
 		COMMAND_ID_HANDLER(ID_APP_EXIT, OnFileExit)
 		COMMAND_ID_HANDLER(ID_FILE_NEW, OnFileNew)
 		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
@@ -60,10 +63,12 @@ public:
 	END_MSG_MAP()
 
 
-// Handler prototypes (uncomment arguments if needed):
-//	LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
-//	LRESULT CommandHandler(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
-//	LRESULT NotifyHandler(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& /*bHandled*/)
+	// Handler prototypes (uncomment arguments if needed):
+	//	LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+	//	LRESULT CommandHandler(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	//	LRESULT NotifyHandler(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& /*bHandled*/)
+
+
 
 	LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
@@ -75,7 +80,16 @@ public:
 		appleStockUpdater.StartThread();
 		appleStockUpdater.stockPrice = "Please wait...";
 
+		
+
 		m_hWndClient = m_view.Create(m_hWnd);
+		m_view.stockUpdater = &appleStockUpdater;
+
+		m_fontBold = CWindowFont();
+		m_fontBold.Apply(m_view.m_hWnd, CWindowFont::typeBold | CWindowFont::typeDoubleHeight , ID_GA);
+	
+
+		// omg.SubclassDlgItem(ID_GA, m_view);
 		m_view.mainFrameHandle = m_hWnd;
 		//CFont m_Font1;
 		//m_Font1.CreatePointFont(16, _T("Arial"));
@@ -110,7 +124,7 @@ public:
 	LRESULT OnFileNew(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		// TODO: add code to initialize document
-		
+
 		return 0;
 	}
 
@@ -138,7 +152,7 @@ public:
 			DWORD dwThreadID;
 			_RunData* pData = new _RunData;
 			pData->CMainFrameHandle = m_hWnd;
-
+			::PostMessage(m_hWnd, WM_SET_STOCK_COLOR, NULL, (LPARAM) RGB(0,255,0));
 			HANDLE hThread = ::CreateThread(NULL, 0, RunThread, pData, 0, &dwThreadID);
 		}
 		else {
@@ -184,10 +198,15 @@ public:
 		int nRet = theLoop.Run();
 
 		free(pData);
+
 		::PostMessage(hMainFrame, WM_SET_BROWSER, (WPARAM) NULL, NULL);
 
 		return nRet;
 	}
 
-
+	LRESULT OnSetStockColor(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+	{	
+		CStatic staticLabel = m_view.GetDlgItem(ID_GA);
+		return 1;
+	}
 };

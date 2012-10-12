@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "AppleStockUpdater.h"
-#include "StockXMLParser.h"
 #include <regex>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

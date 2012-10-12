@@ -109,7 +109,7 @@ IDD_APPLE_FORM DIALOGEX 0, 0, 327, 165
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    CTEXT           "Test OK ----",ID_GA,7,41,304,8
+    CTEXT           "",ID_GA,7,41,304,24
     PUSHBUTTON      "Open Browser",IDC_BUTTON1,227,69,82,14
     LTEXT           "The Apple stock (AAPL) is currently at ",ID_HEADER,15,22,176,8
 END

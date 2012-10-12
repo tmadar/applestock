@@ -1,3 +1,6 @@
+
+#ifndef _HI_
+#define _HI_ 
 #include <atlbase.h>
 #include <atlapp.h>
 #include <atlmisc.h>
@@ -19,6 +22,7 @@ public:
 	HANDLE threadHandle;
 	HANDLE CMainFrameHandle;
 	UINT_PTR timer;
+	int changeColor;
 
 	AppleStockUpdater(void);
 	~AppleStockUpdater(void);
@@ -33,3 +37,4 @@ VOID CALLBACK MyTimerProc(
     UINT idTimer,     // timer identifier 
     DWORD dwTime);
 
+#endif

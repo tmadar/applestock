@@ -42,7 +42,14 @@ int AppleStockUpdater::GetStockInfo() {
 	this->stockPriceXml.Format(_T("%s"), pageSource);
 
 	if (&parser != NULL) {
+		WTL::CString oldPrice = this->stockPrice;
 		this->stockPrice = parser.parseXML(_bstr_t(this->stockPriceXml));
+		if (oldPrice.Compare(this->stockPrice)) {
+			this->changeColor = 1;
+		}
+		else {
+			this->changeColor = 0;
+		}
 	}
 
 	if (this->CMainFrameHandle) {

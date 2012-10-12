@@ -132,6 +132,7 @@
     <ClInclude Include="StockXMLParser.h" />
     <ClInclude Include="TestBrowserForm.h" />
     <ClInclude Include="TestBrowserView.h" />
+    <ClInclude Include="windowfont.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AppleStock.rc" />
