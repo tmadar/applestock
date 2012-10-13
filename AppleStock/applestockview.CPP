@@ -8,3 +8,10 @@ LRESULT CAppleStockView::OnStnClickedTestTextga(WORD /*wNotifyCode*/, WORD /*wID
 
 	return 0;
 }
+
+LRESULT CAppleStockView::OnStnClickedHeader(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	// TODO: Add your control notification handler code here
+
+	return 0;
+}

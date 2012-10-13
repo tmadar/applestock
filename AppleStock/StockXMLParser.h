@@ -13,6 +13,7 @@
 class StockXMLParser
 {
 	public:
+		WTL::CString test;
 		IXMLDOMDocument2* document;
 		StockXMLParser(void);
 		~StockXMLParser(void);

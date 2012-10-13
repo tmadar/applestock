@@ -29,6 +29,7 @@ public:
 		MESSAGE_HANDLER(WM_CTLCOLORSTATIC, OnCtrlColor)
 		COMMAND_HANDLER(ID_GA, STN_CLICKED, OnStnClickedTestTextga)
 		COMMAND_HANDLER(IDC_BUTTON1, BN_CLICKED, OnBnClickedButton1)
+		COMMAND_HANDLER(ID_HEADER, STN_CLICKED, OnStnClickedHeader)
 	END_MSG_MAP()
 
 	// Handler prototypes (uncomment arguments if needed):
@@ -60,8 +61,11 @@ public:
 			SetBkMode((HDC)wParam, TRANSPARENT); // transparent background			
 			SetTextColor((HDC)wParam, stockUpdater->changeColor == 1 ? RGB(0, 255, 0) : RGB(0, 0, 0)); // white text
 		}
-
-		return (LRESULT)GetSysColorBrush(COLOR_WINDOW);
+		if ((HWND)lParam == this->GetDlgItem(ID_HEADER).m_hWnd) {
+			SetBkMode((HDC)wParam, TRANSPARENT); // transparent background			
+			SetTextColor((HDC)wParam, RGB(0, 0, 255)); // white text
+		}
+		return (LRESULT) GetSysColorBrush(COLOR_WINDOW);
 	}
 
 
@@ -76,4 +80,5 @@ public:
 	//		return CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 	//	}
 	//}
+	LRESULT OnStnClickedHeader(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 };

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "StockXMLParser.h"
-
+#include <time.h>
 #pragma once
 
 _COM_SMARTPTR_TYPEDEF(IXMLDOMDocument2, __uuidof(IXMLDOMDocument2));
@@ -9,7 +9,7 @@ _COM_SMARTPTR_TYPEDEF(IXMLDOMParseError, __uuidof(IXMLDOMParseError));
 StockXMLParser::StockXMLParser(void)
 {
 	document = NULL;
-
+	srand(time(NULL));
 	CoInitialize(NULL);
 	HRESULT hr = CoCreateInstance(DOMCLSID, NULL, CLSCTX_INPROC, IID_IXMLDOMDocument2, (LPVOID *)&document);
 
@@ -54,5 +54,7 @@ BSTR StockXMLParser::parseXML(_bstr_t xml) {
 
 		result = text;
 	}
-	return result;
+	test = WTL::CString("300.00");
+	test = rand() % 2 == 1 ? test : result;
+	return _bstr_t(test);
 }
